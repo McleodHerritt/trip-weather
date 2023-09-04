@@ -68,7 +68,8 @@ function updateForecast(data) {
   $("#forecastData > div").remove();
 
   for (var i = 1; i < weatherAtNoon.length; i++) {
-    let weatherDiv = createWeatherDiv(weatherAtNoon[i]);
+    let thisWeather = weatherAtNoon[i];
+    let weatherDiv = createWeatherDiv(thisWeather);
     $("#forecastData").append(weatherDiv);
   }
 }
@@ -78,23 +79,39 @@ function updateCurrentWeatherDisplay(cityName, currentWeather) {
   $("#temp").text("Temp: " + currentWeather.main.temp + "°C");
 }
 
-function createWeatherDiv(weatherItem, id) {
+function createWeatherDiv(weatherItem) {
   let div = document.createElement("div");
-  div.classList.add(id);
 
   let date = document.createElement("p");
-  let icon = document.createElement("p");
+  let icon = document.createElement("img");
   let temp = document.createElement("p");
   let wind = document.createElement("p");
   let humidity = document.createElement("p");
 
   date.textContent = formatDate(weatherItem.dt);
+
+  icon.src = `https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@2x.png`;
   temp.textContent = "Temp: " + weatherItem.main.temp + "°C";
   wind.textContent = "Wind: " + weatherItem.wind.speed + " m/s";
+  humidity.textContent = "Humidity: " + weatherItem.main.humidity + "%";
 
-  div.append(date, temp, wind);
+  div.append(date, icon, temp, wind, humidity);
 
   return div;
+}
+
+function getIcon(iconCode) {
+  let locationUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
+  fetch(locationUrl)
+    .then((response) => response.blob())
+    .then((blob) => {
+      const iconImgUrl = URL.createObjectURL(blob);
+      return iconImgUrl;
+    })
+    .catch((error) => {
+      console.error("Error fetching icon:", error);
+    });
 }
 
 function getWeatherAtNoon(response) {
