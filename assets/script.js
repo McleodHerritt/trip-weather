@@ -65,6 +65,8 @@ function displayResults(data) {
 function updateForecast(data) {
   weatherAtNoon = getWeatherAtNoon(data);
 
+  $("#forecastData > div").remove();
+
   for (var i = 1; i < weatherAtNoon.length; i++) {
     let weatherDiv = createWeatherDiv(weatherAtNoon[i]);
     $("#forecastData").append(weatherDiv);
@@ -86,7 +88,7 @@ function createWeatherDiv(weatherItem, id) {
   let wind = document.createElement("p");
   let humidity = document.createElement("p");
 
-  date.textContent = weatherItem.dt;
+  date.textContent = formatDate(weatherItem.dt);
 
   div.appendChild(date);
 
@@ -108,4 +110,12 @@ function getWeatherAtNoon(response) {
   }
 
   return results;
+}
+
+function formatDate(timestamp) {
+  const date = new Date(timestamp * 1000);
+  const month = date.getMonth() + 1; // Months are 0-based
+  const day = date.getDate();
+  const year = date.getFullYear();
+  return `${month}/${day}/${year}`;
 }
