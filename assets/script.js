@@ -5,7 +5,9 @@ var pastSearches = new Array(10);
 const weatherAPIKey = "22416836bfaaf9b43c5d9d1c14bbb7ff";
 
 // Add an event listener to the form
-weatherForm.addEventListener("submit", function (event) {
+weatherForm.addEventListener("submit", updateWeather);
+
+function updateWeather(event) {
   // Prevent the form from refreshing the page
   event.preventDefault();
 
@@ -14,12 +16,15 @@ weatherForm.addEventListener("submit", function (event) {
   if (pastSearches.length >= 10) {
     pastSearches.shift();
   }
-  pastSearches.push(city);
+
+  if (!pastSearches.includes(city)) {
+    pastSearches.push(city);
+  }
 
   displayPreviousSearch();
   // Fetch weather data for the city (this is just a placeholder, you'll need to use an actual API)
   fetchWeatherData(city);
-});
+}
 
 function fetchWeatherData(city) {
   let locationUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${weatherAPIKey}`;
@@ -46,13 +51,18 @@ function displayPreviousSearch() {
 
   if (pastSearches.length > 0) {
     pastSearches.forEach((item) => {
-      const itemDiv = document.createElement("div");
+      const itemDiv = document.createElement("button");
       itemDiv.textContent = item; // Adjust based on the actual data structure
+      itemDiv.addEventListener("click", onPreviousCityClick);
       searchResultsDiv.appendChild(itemDiv);
     });
   } else {
     searchResultsDiv.textContent = "No results found";
   }
+}
+
+function onPreviousCityClick(event) {
+  fetchWeatherData(event.target.textContent);
 }
 
 function displayResults(data) {
@@ -75,7 +85,10 @@ function updateForecast(data) {
 }
 
 function updateCurrentWeatherDisplay(cityName, currentWeather) {
-  $("#currentWeather").append(cityName, createWeatherDiv(currentWeather));
+  $("#currentWeather > *").remove();
+  let cityNameDiv = document.createElement("h2");
+  cityNameDiv.textContent = cityName;
+  $("#currentWeather").append(cityNameDiv, createWeatherDiv(currentWeather));
 }
 
 function createWeatherDiv(weatherItem) {
