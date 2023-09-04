@@ -1,0 +1,31 @@
+body {
+  display: flex;
+}
+
+#weatherSearch {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+}
+
+#weatherSearch > * {
+  margin: 0.25em;
+}
+
+#forecastData {
+  display: flex;
+  justify-content: space-around;
+}
+
+#forecastData > div {
+  margin: 1em;
+  padding: 1em;
+  background-color: blue;
+  color: white;
+}
+
+#currentWeather {
+  border: 1px solid black;
+  padding: 1em;
+  margin: 1em;
+}

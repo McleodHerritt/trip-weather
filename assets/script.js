@@ -89,8 +89,10 @@ function createWeatherDiv(weatherItem, id) {
   let humidity = document.createElement("p");
 
   date.textContent = formatDate(weatherItem.dt);
+  temp.textContent = "Temp: " + weatherItem.main.temp + "°C";
+  wind.textContent = "Wind: " + weatherItem.wind.speed + " m/s";
 
-  div.appendChild(date);
+  div.append(date, temp, wind);
 
   return div;
 }
