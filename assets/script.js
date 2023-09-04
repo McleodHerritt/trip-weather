@@ -1,12 +1,13 @@
-// Select the form using its ID
+// Initialize DOM elements and retrieve past searches from localStorage
 const weatherForm = document.getElementById("weatherSearch");
 const searchResultsDiv = document.getElementById("searchResults");
 const savedData = localStorage.getItem("pastSearches");
 const weatherAPIKey = "22416836bfaaf9b43c5d9d1c14bbb7ff";
-
 let pastSearches;
 
+// Set up event listeners once the DOM is ready
 $(function () {
+  // Parse past searches from localStorage
   try {
     pastSearches = JSON.parse(savedData);
     displayPreviousSearch();
@@ -15,10 +16,11 @@ $(function () {
     pastSearches = new Array(10);
   }
 
-  // Add an event listener to the form
+  // Attach submit event to the weather form
   weatherForm.addEventListener("submit", updateWeather);
 });
 
+// Handle form submission and update weather data
 function updateWeather(event) {
   // Prevent the form from refreshing the page
   event.preventDefault();
@@ -39,6 +41,7 @@ function updateWeather(event) {
   fetchWeatherData(city);
 }
 
+// Fetch weather data using OpenWeatherMap API
 function fetchWeatherData(city) {
   let locationUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${weatherAPIKey}`;
   fetch(locationUrl)
@@ -59,6 +62,7 @@ function fetchWeatherData(city) {
     });
 }
 
+// Display past searches as clickable buttons
 function displayPreviousSearch() {
   searchResultsDiv.innerHTML = ""; // Clear previous results
 
@@ -76,10 +80,12 @@ function displayPreviousSearch() {
   }
 }
 
+// Fetch weather data for a previously searched city
 function onPreviousCityClick(event) {
   fetchWeatherData(event.target.textContent);
 }
 
+// Display current weather and forecast data
 function displayResults(data) {
   let currentWeather = data.list[0];
 
@@ -87,6 +93,7 @@ function displayResults(data) {
   updateForecast(data);
 }
 
+// Update the forecast section with weather data
 function updateForecast(data) {
   weatherAtNoon = getWeatherAtNoon(data);
 
@@ -99,6 +106,7 @@ function updateForecast(data) {
   }
 }
 
+// Display current weather details
 function updateCurrentWeatherDisplay(cityName, currentWeather) {
   $("#currentWeather > *").remove();
   let cityNameDiv = document.createElement("h2");
@@ -106,6 +114,7 @@ function updateCurrentWeatherDisplay(cityName, currentWeather) {
   $("#currentWeather").append(cityNameDiv, createWeatherDiv(currentWeather));
 }
 
+// Create a div element for displaying weather details
 function createWeatherDiv(weatherItem) {
   let div = document.createElement("div");
 
@@ -127,6 +136,7 @@ function createWeatherDiv(weatherItem) {
   return div;
 }
 
+// Fetch and return the weather icon URL
 function getIcon(iconCode) {
   let locationUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
@@ -141,6 +151,7 @@ function getIcon(iconCode) {
     });
 }
 
+// Extract weather data for today and subsequent days at noon
 function getWeatherAtNoon(response) {
   const today = new Date().toISOString().split("T")[0];
   const results = [];
@@ -158,6 +169,7 @@ function getWeatherAtNoon(response) {
   return results;
 }
 
+// Convert Unix timestamp to mm/dd/yyyy format
 function formatDate(timestamp) {
   const date = new Date(timestamp * 1000);
   const month = date.getMonth() + 1; // Months are 0-based
