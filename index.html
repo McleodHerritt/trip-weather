@@ -7,29 +7,31 @@
     <title>Trip Weather</title>
   </head>
   <body>
-    <aside>
-      <h1>Trip Weather Dashboard</h1>
-      <form id="weatherSearch">
-        <label for="searchCity">Search for a City:</label>
-        <input
-          type="text"
-          id="searchCity"
-          name="city"
-          placeholder="ex. Halifax"
-        />
-        <button type="submit">Search</button>
-      </form>
-      <div id="searchResults"></div>
-    </aside>
+    <h1>Trip Weather Dashboard</h1>
+    <main>
+      <aside>
+        <form id="weatherSearch">
+          <label for="searchCity">Search for a City:</label>
+          <input
+            type="text"
+            id="searchCity"
+            name="city"
+            placeholder="ex. Halifax"
+          />
+          <button type="submit">Search</button>
+        </form>
+        <div id="searchResults"></div>
+      </aside>
 
-    <section>
-      <article id="currentWeather"></article>
+      <section>
+        <article id="currentWeather"></article>
 
-      <article id="5dayForecast">
-        <div id="forecastData"></div>
-      </article>
-    </section>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="./assets/script.js"></script>
+        <article id="5dayForecast">
+          <div id="forecastData"></div>
+        </article>
+      </section>
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      <script src="./assets/script.js"></script>
+    </main>
   </body>
 </html>

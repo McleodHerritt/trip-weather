@@ -1,6 +1,12 @@
-body {
+main {
   display: flex;
   background-color: grey;
+}
+
+h1 {
+  text-align: center;
+  background-color: aqua;
+  padding: 1em;
 }
 
 #weatherSearch {
@@ -29,4 +35,16 @@ body {
   border: 1px solid black;
   padding: 1em;
   margin: 1em;
+}
+
+#searchResults {
+  display: flex;
+  flex-direction: column;
+}
+
+#searchResults > button {
+  background-color: blue;
+  color: white;
+  padding: 1em;
+  margin: 0.25em;
 }
