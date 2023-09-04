@@ -2,6 +2,7 @@
 const weatherForm = document.getElementById("weatherSearch");
 const searchResultsDiv = document.getElementById("searchResults");
 var pastSearches = new Array(10);
+const weatherAPIKey = "22416836bfaaf9b43c5d9d1c14bbb7ff";
 
 // Add an event listener to the form
 weatherForm.addEventListener("submit", function (event) {
@@ -21,11 +22,23 @@ weatherForm.addEventListener("submit", function (event) {
 });
 
 function fetchWeatherData(city) {
-  // Placeholder function: Here you can call an actual weather API to get data for the city
-  // For now, let's just log the city}...`); to the console
-  console.log(pastSearches);
-
-  // TODO: Add API call and display the data in the appropriate sections of the webpage
+  let locationUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${weatherAPIKey}`;
+  fetch(locationUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${data[0].lat}&lon=${data[0].lon}&appid=${weatherAPIKey}&units=metric`;
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          displayResults(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+    });
 }
 
 function displayPreviousSearch() {
@@ -41,3 +54,17 @@ function displayPreviousSearch() {
     searchResultsDiv.textContent = "No results found";
   }
 }
+
+function displayResults(data) {
+  let currentWeather = data.list[0];
+
+  updateCurrentWeatherDisplay(data.city.name, currentWeather);
+}
+
+function updateCurrentWeatherDisplay(cityName, currentWeather) {
+  console.log(currentWeather);
+  $("#cityDate").text(cityName);
+  $("#temp").text("Temp: " + currentWeather.main.temp + "°C");
+}
+
+function createWeatherDiv(currentWeather) {}
