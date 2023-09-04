@@ -1,11 +1,23 @@
 // Select the form using its ID
 const weatherForm = document.getElementById("weatherSearch");
 const searchResultsDiv = document.getElementById("searchResults");
-var pastSearches = new Array(10);
+const savedData = localStorage.getItem("pastSearches");
 const weatherAPIKey = "22416836bfaaf9b43c5d9d1c14bbb7ff";
 
-// Add an event listener to the form
-weatherForm.addEventListener("submit", updateWeather);
+let pastSearches;
+
+$(function () {
+  try {
+    pastSearches = JSON.parse(savedData);
+    displayPreviousSearch();
+  } catch (error) {
+    console.log("Invalid JSON: ", savedData);
+    pastSearches = new Array(10);
+  }
+
+  // Add an event listener to the form
+  weatherForm.addEventListener("submit", updateWeather);
+});
 
 function updateWeather(event) {
   // Prevent the form from refreshing the page
@@ -21,8 +33,9 @@ function updateWeather(event) {
     pastSearches.push(city);
   }
 
+  localStorage.setItem("pastSearches", JSON.stringify(pastSearches));
+
   displayPreviousSearch();
-  // Fetch weather data for the city (this is just a placeholder, you'll need to use an actual API)
   fetchWeatherData(city);
 }
 
@@ -51,10 +64,12 @@ function displayPreviousSearch() {
 
   if (pastSearches.length > 0) {
     pastSearches.forEach((item) => {
-      const itemDiv = document.createElement("button");
-      itemDiv.textContent = item; // Adjust based on the actual data structure
-      itemDiv.addEventListener("click", onPreviousCityClick);
-      searchResultsDiv.appendChild(itemDiv);
+      if (item != null) {
+        const itemDiv = document.createElement("button");
+        itemDiv.textContent = item;
+        itemDiv.addEventListener("click", onPreviousCityClick);
+        searchResultsDiv.appendChild(itemDiv);
+      }
     });
   } else {
     searchResultsDiv.textContent = "No results found";
