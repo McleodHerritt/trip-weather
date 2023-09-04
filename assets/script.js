@@ -75,8 +75,7 @@ function updateForecast(data) {
 }
 
 function updateCurrentWeatherDisplay(cityName, currentWeather) {
-  $("#cityDate").text(cityName);
-  $("#temp").text("Temp: " + currentWeather.main.temp + "°C");
+  $("#currentWeather").append(cityName, createWeatherDiv(currentWeather));
 }
 
 function createWeatherDiv(weatherItem) {
