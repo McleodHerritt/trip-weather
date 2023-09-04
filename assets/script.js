@@ -59,12 +59,53 @@ function displayResults(data) {
   let currentWeather = data.list[0];
 
   updateCurrentWeatherDisplay(data.city.name, currentWeather);
+  updateForecast(data);
+}
+
+function updateForecast(data) {
+  weatherAtNoon = getWeatherAtNoon(data);
+
+  for (var i = 1; i < weatherAtNoon.length; i++) {
+    let weatherDiv = createWeatherDiv(weatherAtNoon[i]);
+    $("#forecastData").append(weatherDiv);
+  }
 }
 
 function updateCurrentWeatherDisplay(cityName, currentWeather) {
-  console.log(currentWeather);
   $("#cityDate").text(cityName);
   $("#temp").text("Temp: " + currentWeather.main.temp + "°C");
 }
 
-function createWeatherDiv(currentWeather) {}
+function createWeatherDiv(weatherItem, id) {
+  let div = document.createElement("div");
+  div.classList.add(id);
+
+  let date = document.createElement("p");
+  let icon = document.createElement("p");
+  let temp = document.createElement("p");
+  let wind = document.createElement("p");
+  let humidity = document.createElement("p");
+
+  date.textContent = weatherItem.dt;
+
+  div.appendChild(date);
+
+  return div;
+}
+
+function getWeatherAtNoon(response) {
+  const today = new Date().toISOString().split("T")[0];
+  const results = [];
+
+  // Today's weather
+  results.push(response.list[0]);
+
+  // Weather for subsequent days at noon
+  for (let item of response.list) {
+    if (item.dt_txt.includes("12:00:00") && !item.dt_txt.includes(today)) {
+      results.push(item);
+    }
+  }
+
+  return results;
+}
