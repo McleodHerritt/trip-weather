@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Meta information for character set and responsive design -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Link to external stylesheet -->
     <link rel="stylesheet" href="./assets/styles.css" />
+
+    <!-- Page title -->
     <title>Trip Weather</title>
   </head>
   <body>
+    <!-- Main heading for the page -->
     <h1>Trip Weather Dashboard</h1>
     <main>
+      <!-- Sidebar for city search and search results -->
       <aside>
         <form id="weatherSearch">
           <label for="searchCity">Search for a City:</label>
@@ -20,18 +27,29 @@
           />
           <button type="submit">Search</button>
         </form>
+
+        <!-- Horizontal line separator -->
         <hr />
+
+        <!-- Container for displaying search results -->
         <div id="searchResults"></div>
       </aside>
 
+      <!-- Main content section for displaying weather details -->
       <section>
+        <!-- Article for displaying current weather -->
         <article id="currentWeather"></article>
 
+        <!-- Article for displaying 5-day weather forecast -->
         <article id="5dayForecast">
           <div id="forecastData"></div>
         </article>
       </section>
+
+      <!-- Link to jQuery library -->
       <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+      <!-- Link to external JavaScript file -->
       <script src="./assets/script.js"></script>
     </main>
   </body>
