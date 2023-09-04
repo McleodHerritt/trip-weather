@@ -3,21 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="assets\styles.css" />
-
-    <title>Trip Weather</title>
-  </head>
-  <body></body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./assets/styles.css" />
     <title>Trip Weather</title>
   </head>
   <body>
+    <aside>
+      <h1>Trip Weather Dashboard</h1>
+      <form>
+        <label for="searchCity">Search for a City:</label>
+        <input
+          type="text"
+          id="searchCity"
+          name="city"
+          placeholder="ex. Halifax"
+        />
+        <button type="submit">Search</button>
+      </form>
+    </aside>
+
+    <section>
+      <article id="currentWeather">
+        <h2 id="cityDate">City</h2>
+        <p id="temp">Temp:</p>
+        <p id="wind">Wind:</p>
+        <p id="humidity">Humidity:</p>
+      </article>
+
+      <article id="5dayForecast">
+        <h3 id="5dayForecast"></h3>
+        <div id="forecastData"></div>
+      </article>
+    </section>
     <script src="./assets/script.js"></script>
   </body>
 </html>
