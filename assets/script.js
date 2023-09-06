@@ -13,7 +13,13 @@ $(function () {
     displayPreviousSearch();
   } catch (error) {
     console.log("Invalid JSON: ", savedData);
-    pastSearches = new Array(10);
+    pastSearches = [];
+  }
+
+  if (pastSearches.length > 0) {
+    fetchWeatherData(pastSearches[0]);
+  } else {
+    fetchWeatherData("Halifax");
   }
 
   // Attach submit event to the weather form
@@ -67,7 +73,7 @@ function displayPreviousSearch() {
   searchResultsDiv.innerHTML = ""; // Clear previous results
 
   if (pastSearches.length > 0) {
-    pastSearches.forEach((item) => {
+    pastSearches.reverse().forEach((item) => {
       if (item != null) {
         const itemDiv = document.createElement("button");
         itemDiv.textContent = item;
@@ -109,6 +115,7 @@ function updateForecast(data) {
 // Display current weather details
 function updateCurrentWeatherDisplay(cityName, currentWeather) {
   $("#currentWeather > *").remove();
+
   let cityNameDiv = document.createElement("h2");
   cityNameDiv.textContent = cityName;
   $("#currentWeather").append(cityNameDiv, createWeatherDiv(currentWeather));
