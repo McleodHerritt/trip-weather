@@ -49,11 +49,11 @@ function updateWeather(event) {
 
 // Fetch weather data using OpenWeatherMap API
 function fetchWeatherData(city) {
-  let locationUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${weatherAPIKey}`;
+  let locationUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${weatherAPIKey}`;
   fetch(locationUrl)
     .then((response) => response.json())
     .then((data) => {
-      let apiUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${data[0].lat}&lon=${data[0].lon}&appid=${weatherAPIKey}&units=metric`;
+      let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${data[0].lat}&lon=${data[0].lon}&appid=${weatherAPIKey}&units=metric`;
       fetch(apiUrl)
         .then((response) => response.json())
         .then((data) => {
