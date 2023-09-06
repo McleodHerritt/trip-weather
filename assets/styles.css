@@ -1,8 +1,10 @@
+/* Main container styling */
 main {
   display: flex;
   background-color: white;
 }
 
+/* Styling for h1 elements */
 h1 {
   text-align: center;
   background-color: navy;
@@ -10,60 +12,86 @@ h1 {
   color: white;
 }
 
+/* Styling for the weather search container */
 #weatherSearch {
   display: flex;
   flex-direction: column;
   padding: 1em;
 }
 
+/* Apply margin to all direct children of the weather search container */
 #weatherSearch > * {
   margin: 0.25em;
 }
 
+/* Styling for the forecast data container */
 #forecastData {
   display: flex;
   justify-content: space-around;
 }
 
+/* Styling for each forecast data item */
 #forecastData > div {
   margin: 1em;
   padding: 1em;
-  background-color: navy;
+  background-color: rgb(56, 55, 55);
   color: white;
 }
 
+/* Styling for the current weather container */
 #currentWeather {
   border: 1px solid black;
   padding: 1em;
   margin: 1em;
 }
 
+/* Styling for the search results container */
 #searchResults {
   display: flex;
   flex-direction: column;
 }
 
+/* Styling for buttons inside the search results container */
 #searchResults > button {
-  background-color: grey;
+  background-color: darkgrey;
   color: black;
   padding: 1em;
   margin: 0.25em;
+  border: none;
+  border-radius: 5px;
 }
 
+/* Styling for a specific button with ID "button" */
 #button {
   color: white;
-  background-color: rgba(112, 144, 231, 0.603);
+  background-color: rgba(55, 92, 194, 0.603);
   border: none;
   padding: 0.5em;
   margin: 1em;
+  transition: box-shadow;
+  border-radius: 5px;
 }
 
+/* Hover effect for the button with ID "button" */
+#button:hover {
+  filter: brightness(120%) drop-shadow(8px 8px 10px rgb(18, 1, 90));
+}
+
+/* Styling for label elements */
 label {
   font-weight: bolder;
   font-size: large;
 }
 
+/* Styling for h2 elements */
 h2 {
-  font-size: larger;
+  font-size: x-large;
+  font-weight: bolder;
+  padding: 0;
+}
+
+/* Styling for h2 elements inside an element with ID "forecast" */
+#forecast h2 {
+  font-size: large;
   padding: 1em;
 }
